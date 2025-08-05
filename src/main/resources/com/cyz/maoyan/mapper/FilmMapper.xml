@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.FilmMapper">
+
+    <select id="getFilmListByState" resultType="com.cyz.maoyan.entity.Film">
+        select * from film where del = 0 and play_state = #{state}
+    </select>
+    <select id="getFilmTop100" resultType="com.cyz.maoyan.dto.FilmDTO">
+        select film.*, avg(comment.score) as score
+        from film
+                 left join comment on film.id = comment.film_id
+        where film.del = 0 and comment.del = 0
+        group by film.id
+        order by score desc
+    </select>
+    <select id="selectFilmList" resultType="com.cyz.maoyan.dto.FilmDTO">
+        select film.*, avg(comment.score) as score
+        from film left join film_types on film.id = film_types.film_id
+        left join comment on film.id = comment.film_id
+        <where>
+            film.del = 0
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="regionId != null">
+                and region_id = #{regionId}
+            </if>
+            <if test="begin != null and end != null">
+                and release_date between #{begin} and #{end}
+            </if>
+            and comment.del = 0
+        </where>
+        group by film.id
+        <if test="sort == 1">
+            order by want_see desc
+        </if>
+        <if test="sort == 2">
+            order by release_date desc
+        </if>
+        <if test="sort ==3 ">
+            order by score desc
+        </if>
+    </select>
+    <select id="getFilmExpectation" resultType="com.cyz.maoyan.entity.Film">
+        select * from film where del = 0 order by want_see  desc
+    </select>
+</mapper>
