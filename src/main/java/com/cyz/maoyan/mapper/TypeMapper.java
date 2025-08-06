@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface TypeMapper {
     List<Type> getTypeList();
+    List<Type> getTypeListByFilmId(Integer filmId);
 }

@@ -2,13 +2,15 @@ package com.cyz.maoyan.service.impl;
 
 import com.cyz.maoyan.dto.FilmDTO;
 import com.cyz.maoyan.entity.Film;
-import com.cyz.maoyan.mapper.FilmMapper;
+import com.cyz.maoyan.entity.FilmCast;
+import com.cyz.maoyan.mapper.*;
 import com.cyz.maoyan.service.FilmService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,14 @@ import java.util.Map;
 public class FilmServiceImpl implements FilmService {
     @Autowired
     private FilmMapper filmMapper;
+    @Autowired
+    private AtlasMapper atlasMapper;
+    @Autowired
+    private TypeMapper typeMapper;
+    @Autowired
+    private TrailerMapper trailerMapper;
+    @Autowired
+    private FilmCastMapper filmCastMapper;
 
     @Override
     public Map<String, List<Film>> getFilmHomePage() {
@@ -62,5 +72,27 @@ public class FilmServiceImpl implements FilmService {
         }
         List<FilmDTO> list = filmMapper.selectFilmList(typeId, regionId, begin, end, sort);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public FilmDTO selectFilmById(Integer id) {
+        FilmDTO filmDTO = filmMapper.selectFilmById(id);
+        filmDTO.setAtlasList(atlasMapper.getAtlasListByFilmId(id));
+        filmDTO.setTypeList(typeMapper.getTypeListByFilmId(id));
+        filmDTO.setTrailerList(trailerMapper.getTrailerListByFilmId(id));
+        List<FilmCast> list = filmCastMapper.getFilmCastListByFilmId(id);
+        Map<String, List<FilmCast>> map = new HashMap<>();
+        for (FilmCast filmCast : list) {
+            String key = filmCast.getPositionEnglish();
+            if(map.containsKey(key)){
+                map.get(key).add(filmCast);
+            }else {
+                List<FilmCast> list1 = new ArrayList<>();
+                list1.add(filmCast);
+                map.put(key, list1);
+            }
+        }
+        filmDTO.setFilmCastList(map);
+        return filmDTO;
     }
 }

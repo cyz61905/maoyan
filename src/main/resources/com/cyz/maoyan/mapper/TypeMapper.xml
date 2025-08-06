@@ -4,4 +4,9 @@
     <select id="getTypeList" resultType="com.cyz.maoyan.entity.Type">
         select * from type where del = 0
     </select>
+    <select id="getTypeListByFilmId" resultType="com.cyz.maoyan.entity.Type">
+        select *
+        from type
+        where id in (select type_id from film_types where film_id = #{id})
+    </select>
 </mapper>

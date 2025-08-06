@@ -7,10 +7,7 @@ import com.cyz.maoyan.entity.Film;
 import com.cyz.maoyan.service.FilmService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description
@@ -43,4 +40,10 @@ public class FilmController {
         PageInfo<FilmDTO> filmPageInfo = filmService.selectFilmList(pageNum, pageSize, typeId, regionId, year, sort);
         return AjaxResult.success(new ResultPage(filmPageInfo.getTotal(), filmPageInfo.getPages(), filmPageInfo.getList()));
     }
+
+    @GetMapping("{id}")
+    public AjaxResult selectFilmById(@PathVariable Integer id) {
+        return AjaxResult.success(filmService.selectFilmById(id));
+    }
+
 }

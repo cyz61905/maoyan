@@ -44,4 +44,11 @@
     <select id="getFilmExpectation" resultType="com.cyz.maoyan.entity.Film">
         select * from film where del = 0 order by want_see  desc
     </select>
+    <select id="selectFilmById" resultType="com.cyz.maoyan.dto.FilmDTO">
+        select film.*, avg(comment.score) as score, count(comment.id) as commentCount
+        from film
+                 left join comment on film.id = comment.film_id
+        where film.id = #{id}
+        group by film.id
+    </select>
 </mapper>

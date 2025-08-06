@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.CommentMapper">
+    <select id="getCommentListByFilmId" resultType="com.cyz.maoyan.dto.CommentDTO">
+        select *  from comment where film_id = #{filmId}
+    </select>
+    <insert id="addComment">
+        insert into comment
+        values (null, #{filmId}, #{userId}, #{content}, #{score}, #{createTime}, #{del})
+    </insert>
+</mapper>

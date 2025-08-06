@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.UserWantFilmMapper">
+    <select id="selectUserWantFilmByUserIdAndFilmId" resultType="com.cyz.maoyan.entity.UserWantFilm">
+        select * from user_want_film where user_id = #{userId} and film_id = #{filmId}
+    </select>
+    <insert id="addUserWantFilm">
+        insert into user_want_film
+        values (null, #{userId}, #{filmId})
+    </insert>
+    <delete id="deleteUserWantFilm">
+        delete from user_want_film where user_id = #{userId} and film_id = #{filmId}
+    </delete>
+</mapper>

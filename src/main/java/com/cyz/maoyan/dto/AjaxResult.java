@@ -21,6 +21,9 @@ public class AjaxResult {
         this.code = code;
         this.data = data;
     }
+    public static AjaxResult success() {
+        return new AjaxResult("操作成功", 200, null);
+    }
     public static AjaxResult success(Object data) {
         return new AjaxResult("操作成功", 200, data);
     }
