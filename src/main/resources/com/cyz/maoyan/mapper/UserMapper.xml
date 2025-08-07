@@ -10,4 +10,29 @@
             #{id}
         </foreach>
     </select>
+    <select id="login" resultType="com.cyz.maoyan.entity.User">
+        select * from user where username = #{username} and password = #{password} and del = 0
+    </select>
+    <insert id="addUser">
+        insert into user(username, password, nick_name, del)
+        values (#{username}, #{password}, #{username}, 0);
+    </insert>
+    <select id="selectUserByUsername" resultType="com.cyz.maoyan.entity.User">
+        select username from user where username = #{username}
+    </select>
+    <update id="updateUser">
+        update user
+        <set>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="livingState != null">living_state = #{livingState},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="interest != null">interest = #{interest},</if>
+            <if test="signature != null">signature = #{signature},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

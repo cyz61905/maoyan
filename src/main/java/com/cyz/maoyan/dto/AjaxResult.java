@@ -28,10 +28,10 @@ public class AjaxResult {
         return new AjaxResult("操作成功", 200, data);
     }
     public static AjaxResult error() {
-        return new AjaxResult("操作失败", 400, null);
+        return new AjaxResult("操作失败", 500, null);
     }
     public static AjaxResult error(String msg) {
-        return new AjaxResult(msg, 400, null);
+        return new AjaxResult(msg, 500, null);
     }
     public AjaxResult msg(String msg){
         this.msg = msg;

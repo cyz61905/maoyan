@@ -15,4 +15,8 @@ import java.util.List;
 public interface UserMapper {
     User selectUserById(Integer id);
     List<User> selectUserList(Collection<Integer> ids);
+    User login(String username, String password);
+    int addUser(String username, String password);
+    User selectUserByUsername(String username);
+    int updateUser(User user);
 }

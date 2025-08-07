@@ -1,5 +1,6 @@
 package com.cyz.maoyan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class User {
     private Integer id;
+    @JsonIgnore
     private String password;
     private String username;
     private String nickName;
