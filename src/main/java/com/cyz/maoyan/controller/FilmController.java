@@ -3,7 +3,6 @@ package com.cyz.maoyan.controller;
 import com.cyz.maoyan.dto.AjaxResult;
 import com.cyz.maoyan.dto.FilmDTO;
 import com.cyz.maoyan.dto.ResultPage;
-import com.cyz.maoyan.entity.Film;
 import com.cyz.maoyan.service.FilmService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +41,8 @@ public class FilmController {
     }
 
     @GetMapping("{id}")
-    public AjaxResult selectFilmById(@PathVariable Integer id) {
-        return AjaxResult.success(filmService.selectFilmById(id));
+    public AjaxResult selectFilmDTOById(@PathVariable Integer id) {
+        return AjaxResult.success(filmService.selectFilmDTOById(id));
     }
 
 }

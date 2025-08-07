@@ -75,8 +75,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmDTO selectFilmById(Integer id) {
-        FilmDTO filmDTO = filmMapper.selectFilmById(id);
+    public FilmDTO selectFilmDTOById(Integer id) {
+        FilmDTO filmDTO = filmMapper.selectFilmDTOById(id);
         filmDTO.setAtlasList(atlasMapper.getAtlasListByFilmId(id));
         filmDTO.setTypeList(typeMapper.getTypeListByFilmId(id));
         filmDTO.setTrailerList(trailerMapper.getTrailerListByFilmId(id));

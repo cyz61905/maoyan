@@ -11,6 +11,6 @@ import com.cyz.maoyan.entity.UserWantFilm;
 
 public interface UserWantFilmMapper {
     UserWantFilm selectUserWantFilmByUserIdAndFilmId(Integer userId, Integer filmId);
-    void addUserWantFilm(UserWantFilm userWantFilm);
-    void deleteUserWantFilm(Integer userId, Integer filmId);
+    int addUserWantFilm(UserWantFilm userWantFilm);
+    int deleteUserWantFilm(Integer userId, Integer filmId);
 }

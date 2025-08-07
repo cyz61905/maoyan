@@ -17,5 +17,7 @@ public interface FilmMapper {
     List<Film> getFilmExpectation();
     List<FilmDTO> getFilmTop100();
     List<FilmDTO> selectFilmList(Integer typeId, Integer regionId, String begin, String end, Integer sort);
-    FilmDTO selectFilmById(Integer id);
+    Film selectFilmById(Integer id);
+    FilmDTO selectFilmDTOById(Integer id);
+    int updateFilm(Film film);
 }

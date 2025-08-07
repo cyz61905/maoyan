@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -33,22 +34,25 @@ public class CommentServiceImpl implements CommentService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional
     public PageInfo<CommentDTO> getCommentListByFilmId(Integer pageNum, Integer pageSize, Integer filmId) {
         PageHelper.startPage(pageNum, pageSize);
         List<CommentDTO> list = commentMapper.getCommentListByFilmId(filmId);
         Set<Integer> userIds = list.stream().map(CommentDTO::getUserId).collect(Collectors.toSet());
         Map<Integer, User> userMap = userMapper.selectUserList(userIds).stream().collect(Collectors.toMap(User::getId, user -> user));
         for (CommentDTO commentDTO : list) {
-            commentDTO.setUser(userMap.get(commentDTO.getUserId()));
+            Integer userId = commentDTO.getUserId();
+            if(userMap.containsKey(userId)){
+                commentDTO.setUser(userMap.get(userId));
+            }else {
+                commentDTO.setUser(new User(userId, null, null, null, null, null, null, null, null, null, null, null));
+            }
         }
-        PageInfo<CommentDTO> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
     public void addComment(Comment comment) {
-        comment.setDel(0);
-        comment.setCreateTime(new Date());
         commentMapper.addComment(comment);
     }
 }

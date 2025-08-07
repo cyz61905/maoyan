@@ -31,13 +31,25 @@ public class UserWantFilmController {
 
     @PostMapping("want")
     public AjaxResult addUserWantFilm(@RequestBody UserWantFilm userWantFilm){
-        userWantFilmService.addUserWantFilm(userWantFilm);
-        return AjaxResult.success();
+        int i = userWantFilmService.addUserWantFilm(userWantFilm);
+        if (i == -1){
+            return AjaxResult.error("添加想看失败").code(500);
+        }else if (i == 0){
+            return AjaxResult.error("已想看").code(500);
+        }else {
+            return AjaxResult.success().msg("添加想看成功");
+        }
     }
 
     @DeleteMapping("delete")
     public AjaxResult deleteUserWantFilm(Integer userId, Integer filmId){
-        userWantFilmService.deleteUserWantFilm(userId, filmId);
-        return AjaxResult.success();
+        int i = userWantFilmService.deleteUserWantFilm(userId, filmId);
+        if (i == -1){
+            return AjaxResult.error("删除想看失败").code(500);
+        } else if (i == 0) {
+            return AjaxResult.error("未想看该影片").code(500);
+        }else {
+            return AjaxResult.success().msg("删除想看成功");
+        }
     }
 }

@@ -12,7 +12,7 @@ import com.cyz.maoyan.entity.UserWantFilm;
 public interface UserWantFilmService {
     UserWantFilm selectUserWantFilmByUserIdAndFilmId(Integer userId, Integer filmId);
 
-    void addUserWantFilm(UserWantFilm userWantFilm);
+    int addUserWantFilm(UserWantFilm userWantFilm);
 
-    void deleteUserWantFilm(Integer userId, Integer filmId);
+    int deleteUserWantFilm(Integer userId, Integer filmId);
 }
