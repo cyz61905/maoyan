@@ -13,11 +13,12 @@ import java.util.List;
  */
 
 public interface FilmMapper {
-    List<Film> getFilmListByState(Integer state);
+    List<FilmDTO> getFilmListByState(Integer state);
     List<Film> getFilmExpectation();
     List<FilmDTO> getFilmTop100();
     List<FilmDTO> selectFilmList(Integer typeId, Integer regionId, String begin, String end, Integer sort);
     Film selectFilmById(Integer id);
     FilmDTO selectFilmDTOById(Integer id);
     int updateFilm(Film film);
+    List<Integer> selectFilmIdsByCinemaId(Integer cinemaId);
 }

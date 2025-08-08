@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.CinemaFilmSessionMapper">
+    <select id="selectCinemaFilmSessionByCinemaIdAndFilmId"
+            resultType="com.cyz.maoyan.entity.CinemaFilmSession">
+        select * from cinema_film_session where cinema_id = #{cinemaId} and film_id = #{filmId}
+    </select>
+    <select id="getPriceById" resultType="java.lang.Integer">
+        select price from cinema_film_session where id = #{id}
+    </select>
+    <update id="updateCinemaFilmSessionSeat">
+        update cinema_film_session set seat = #{seat} where id = #{id}
+    </update>
+    <select id="selectCinemaFilmSessionById" resultType="com.cyz.maoyan.entity.CinemaFilmSession">
+        select * from cinema_film_session where id = #{id}
+    </select>
+    <select id="getCinemaIdBySessionId" resultType="java.lang.Integer">
+        select cinema_id from cinema_film_session where id = #{id}
+    </select>
+
+
+</mapper>

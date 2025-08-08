@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 public interface FilmService {
-    Map<String, List<Film>> getFilmHomePage();
+    Map<String, List<? extends Film>> getFilmHomePage();
     List<FilmDTO> getFilmTop100();
     PageInfo<FilmDTO> selectFilmList(Integer pageNum, Integer pageSize, Integer typeId, Integer regionId, String year, Integer sort);
     FilmDTO selectFilmDTOById(Integer id);

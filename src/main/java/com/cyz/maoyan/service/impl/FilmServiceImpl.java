@@ -36,12 +36,12 @@ public class FilmServiceImpl implements FilmService {
     private FilmCastMapper filmCastMapper;
 
     @Override
-    public Map<String, List<Film>> getFilmHomePage() {
-        Map<String, List<Film>> map = new HashMap<>();
+    public Map<String, List<? extends Film>> getFilmHomePage() {
+        Map<String, List<?extends Film>> map = new HashMap<>();
         PageHelper.startPage(1, 10);
-        List<Film> list0 = filmMapper.getFilmListByState(0);
+        List<FilmDTO> list0 = filmMapper.getFilmListByState(0);
         PageHelper.startPage(1, 10);
-        List<Film> list1 = filmMapper.getFilmListByState(1);
+        List<FilmDTO> list1 = filmMapper.getFilmListByState(1);
         PageHelper.startPage(1, 3);
         List<Film> list2 = filmMapper.getFilmExpectation();
         map.put("noPlay", list0);

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.OrderMapper">
+    <insert id="addOrder" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into `order`
+        values (null, #{userId}, #{price}, #{createTime}, #{state}, #{filmId}, #{sessionId}, #{seatList},
+                #{seatRealList},
+                #{orderNum}, #{del})
+    </insert>
+    <select id="selectOrderById" resultType="com.cyz.maoyan.dto.OrderDTO">
+        select concat(cinema.title, '(', cinema.shop_sign, ')') as cinemaName,
+               film.name                                        as filmName,
+               `order`.create_time                              as orderCreateTime,
+               `order`.id                                       as orderId,
+               cinema_film_session.play_time                    as playTime,
+               cinema_film_session.screening_room               as session,
+               cinema.address                                   as cinemaAddress,
+               cinema.phone                                     as phone,
+               `order`.*
+        from `order`
+                 join cinema_film_session on `order`.session_id = cinema_film_session.id
+                 join cinema on cinema_film_session.cinema_id = cinema.id
+                 join film on cinema_film_session.film_id = film.id
+        where `order`.id = #{id}
+    </select>
+    <update id="cancelOrder">
+        update `order`
+        set `order`.state = '-1'
+        where id = #{id}
+    </update>
+    <update id="deleteOrder">
+        update `order`
+        set `order`.del = 1
+        where id = #{id}
+    </update>
+    <select id="selectOrderListByUserId" resultType="com.cyz.maoyan.entity.Order">
+        select *
+        from `order`
+        where user_id = #{userId}
+          and del = 0
+    </select>
+
+
+</mapper>
