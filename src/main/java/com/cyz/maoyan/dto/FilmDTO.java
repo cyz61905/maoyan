@@ -1,9 +1,7 @@
 package com.cyz.maoyan.dto;
 
 import com.cyz.maoyan.entity.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +15,8 @@ import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FilmDTO extends Film {
     private Double score;
     private List<Atlas> atlasList;

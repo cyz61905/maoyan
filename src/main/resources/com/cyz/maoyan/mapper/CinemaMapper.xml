@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyz.maoyan.mapper.CinemaMapper">
+    <select id="cinemaNameList" resultType="java.lang.String">
+        select distinct title
+        from cinema
+    </select>
+    <select id="selectCinemaList" resultType="com.cyz.maoyan.dto.CinemaDTO">
+        select c.*, min(price) low_price
+        from cinema_film_session
+        join
+        (select cinema.*
+        from cinema
+        left join screen_room on cinema.id = screen_room.cinema_id
+        <where>
+            <if test="brand!=null">
+                title = #{brand}
+            </if>
+            <if test="level!=null">
+                and name like concat('%',#{level},'%')
+            </if>
+        </where>
+        ) c
+        on cinema_film_session.cinema_id = c.id
+        group by cinema_id
+    </select>
+    <select id="selectCinemaById" resultType="com.cyz.maoyan.dto.CinemaDTO">
+        select cinema.*, min(price) low_price
+        from cinema
+                 join cinema_film_session on cinema.id = cinema_film_session.cinema_id
+        where cinema.id = #{id};
+    </select>
+
+</mapper>
