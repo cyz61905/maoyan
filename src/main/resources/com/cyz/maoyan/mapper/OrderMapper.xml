@@ -33,11 +33,21 @@
         set `order`.del = 1
         where id = #{id}
     </update>
+    <update id="payOrder">
+        update `order`
+        set `order`.state = '1'
+        where id = #{id}
+    </update>
     <select id="selectOrderListByUserId" resultType="com.cyz.maoyan.entity.Order">
         select *
         from `order`
         where user_id = #{userId}
           and del = 0
+    </select>
+    <select id="getSessionIdByOrderId" resultType="java.lang.Integer">
+        select session_id
+        from `order`
+        where id = #{id}
     </select>
 
 

@@ -1,7 +1,6 @@
 package com.cyz.maoyan.service.impl;
 
 import com.cyz.maoyan.dto.OrderDTO;
-import com.cyz.maoyan.dto.OrderDetailDTO;
 import com.cyz.maoyan.entity.CinemaFilmSession;
 import com.cyz.maoyan.entity.Order;
 import com.cyz.maoyan.mapper.CinemaFilmSessionMapper;
@@ -9,7 +8,10 @@ import com.cyz.maoyan.mapper.CinemaMapper;
 import com.cyz.maoyan.mapper.FilmMapper;
 import com.cyz.maoyan.mapper.OrderMapper;
 import com.cyz.maoyan.service.OrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,13 +73,37 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int cancelOrder(Integer id) {
-        return orderMapper.cancelOrder(id);
+    @Transactional
+    public int cancelOrder(Integer id){
+        int sessionId = orderMapper.getSessionIdByOrderId(id);
+        CinemaFilmSession cinemaFilmSession = cinemaFilmSessionMapper.selectCinemaFilmSessionById(sessionId);
+        String oldSeat = cinemaFilmSession.getSeat();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            int[][] seatArray = objectMapper.readValue(oldSeat, int[][].class);
+            String[] seatList = orderMapper.selectOrderById(id).getSeatList().split(",");
+            for (String seat : seatList) {
+                String[] split = seat.split("-");
+                seatArray[Integer.parseInt(split[0])][Integer.parseInt(split[1])] = 0;
+            }
+            cinemaFilmSession.setSeat(objectMapper.writeValueAsString(seatArray));
+            cinemaFilmSessionMapper.updateCinemaFilmSessionSeat(cinemaFilmSession);
+            orderMapper.cancelOrder(id);
+            return 1;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int deleteOrder(Integer id) {
         return orderMapper.deleteOrder(id);
+    }
+
+    @Override
+    public int payOrder(String orderId) {
+        return orderMapper.payOrder(orderId);
     }
 
     @Override
