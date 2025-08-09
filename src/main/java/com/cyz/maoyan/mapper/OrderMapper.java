@@ -1,7 +1,6 @@
 package com.cyz.maoyan.mapper;
 
 import com.cyz.maoyan.dto.OrderDTO;
-import com.cyz.maoyan.dto.OrderDetailDTO;
 import com.cyz.maoyan.entity.Order;
 
 import java.util.List;
@@ -18,5 +17,7 @@ public interface OrderMapper {
     OrderDTO selectOrderById(Integer id);
     int cancelOrder(Integer id);
     int deleteOrder(Integer id);
+    int payOrder(String id);
     List<Order> selectOrderListByUserId(Integer userId);
+    int getSessionIdByOrderId(Integer  id);
 }
