@@ -42,7 +42,7 @@ public class FilmServiceImpl implements FilmService {
         List<FilmDTO> list0 = filmMapper.getFilmListByState(0);
         PageHelper.startPage(1, 10);
         List<FilmDTO> list1 = filmMapper.getFilmListByState(1);
-        PageHelper.startPage(1, 3);
+        PageHelper.startPage(1, 10);
         List<Film> list2 = filmMapper.getFilmExpectation();
         map.put("noPlay", list0);
         map.put("playing", list1);

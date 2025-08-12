@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /maoyan
   port: 8080
+  address: localhost
 
 spring:
   datasource:
