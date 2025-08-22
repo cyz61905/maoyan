@@ -1,0 +1,330 @@
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    height: 80px;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #d8d8d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .header-inner {
+    height: 100%;
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .header-left {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo a {
+    display: block;
+    width: 133px;
+    height: 80px;
+    background: url("@/assets/images/logo.png") no-repeat 0;
+}
+
+
+.header .header-right {
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.header .city {
+    position: relative;
+    height: 100%;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    font-size: 16px;
+}
+
+.header .select {
+    display: none;
+    position: absolute;
+    z-index: 200;
+    top: 80px;
+    left: -1px;
+    width: 480px;
+    height: 330px;
+    background-color: #fff;
+    border: 1px solid #d8d8d8;
+}
+
+.header .city:hover {
+    box-sizing: border-box;
+    cursor: pointer;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+}
+
+.header .city:hover .select {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 16px;
+    color: #000;
+    cursor: default;
+}
+
+.header .city:hover::after {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 0px;
+    width: 68px;
+    z-index: 300;
+    border-bottom: 1px solid #fff;
+}
+
+
+.header .city .select .gps-city {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 20px;
+}
+
+.header .city .select .recent-city {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px 20px;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.header .select .city-list {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.header .select .city-list ul li {
+    width: 100%;
+    margin: 0 0 10px 10px;
+    display: flex;
+}
+
+.header .select .city-list ul li span {
+    margin-top: 5px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #eee;
+}
+
+.header .select .city-list ul li div {
+    margin-left: 5px;
+    width: 420px;
+}
+
+.header .select .city-list ul li div a,
+.header .select .gps-city a,
+.header .select .recent-city a {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 3px;
+    padding: 0 5px;
+}
+
+.header .select .city-list ul li div a:hover,
+.header .select .recent-city a:hover {
+    background-color: #ef4238;
+    color: #fff;
+}
+
+.header .nav {
+    width: 530px;
+    height: 80px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.header .nav a {
+    text-align: center;
+    display: inline-block;
+    height: 80px;
+    line-height: 80px;
+    width: 66px;
+    font-size: 18px;
+    color: #333;
+}
+
+.header .nav a:hover {
+    cursor: pointer;
+    color: #ef4238;
+}
+
+.header .nav .active {
+    background-color: #ef4238;
+    color: #fff !important;
+}
+
+.header .APP {
+    margin-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+    width: 140px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .user {
+    margin-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+    width: 76px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .APP .iconfont {
+    font-size: 24px;
+}
+
+.header .APP span,
+.header .user span {
+    margin: 0 5px;
+}
+
+.header .user img {
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.header .download {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: -1px;
+    width: 139px;
+    height: 160px;
+    border-left: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+    background-color: #fff;
+}
+
+.header .APP:hover,
+.header .user:hover {
+    cursor: pointer;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+}
+
+.header .APP:hover .download,
+.header .user:hover .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .login {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: -1px;
+    width: 75px;
+    height: 90px;
+    border-left: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+    background-color: #fff;
+    font-size: 14px;
+    color: #999;
+}
+
+.header .login a {
+    margin-bottom: 10px;
+}
+.header .login a:hover{
+    color: #ef4238;
+    text-decoration: underline;
+}
+
+.header .city:hover .arrow,
+.header .APP:hover .arrow,
+.header .user:hover .arrow {
+    transform: rotateZ(180deg);
+    transition: all 0.3s;
+}
+
+.header .arrow {
+    /* 把行属性标签转换为行内块属性标签 */
+    display: inline-block;
+    border-top: 5px solid #666;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    /* 行内块属性需要调整基线 */
+    vertical-align: 3px;
+}
+
+.footer {
+    margin-top: 82px;
+    padding: 56px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #262426;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.footer p {
+    line-height: 22px;
+}
+
+.footer p a {
+    color: #ef4238;
+}
+
+.footer p.friendly-links a {
+    color: #ccc;
+}
+
+.footer p.friendly-links a:hover {
+    text-decoration: underline;
+}
+
+.footer .pic {
+    margin-top: 20px;
+}
+
+.footer .pic a {
+    padding-right: 12px;
+}
+
+.footer .pic img {
+    height: 40px;
+}

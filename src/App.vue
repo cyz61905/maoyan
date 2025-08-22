@@ -1,10 +1,14 @@
 <template>
-  <div>
-
-  </div>
+  <RouterView/>
 </template>
 
 <script setup>
+
+import { useUserStore } from '@/stores/userStore.js'
+
+const userStore = useUserStore()
+userStore.user.value = JSON.parse(localStorage.getItem('user'))
+
 
 </script>
 
