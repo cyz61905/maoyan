@@ -127,12 +127,7 @@ const formatFilmData = computed(() => {
     let posterUrl = baseUrl + '?imageView2/1/w/160/h/220'
     let bigPosterUrl = baseUrl + '?imageView2/1/w/218/h/300'
     let score = value.score ? (String(value.score).length >= 3 ? String(value.score) : value.score + '.0') : '0.0'
-    return {
-      ...value,
-      posterUrl,
-      bigPosterUrl,
-      score
-    }
+    return { ...value, posterUrl, bigPosterUrl, score }
   })
 })
 
@@ -151,16 +146,16 @@ const optionsChange = (option, e) => {
     }
   }
 }
-watchEffect(async () => {
-  const filmListRes = await getFilmList(typeId.value, regionId.value, yearId.value, sortId.value, pageNum.value, pageSize.value)
-  filmList.value = filmListRes.data.list
-  total.value = filmListRes.data.total
-})
 onMounted(async () => {
   const typeListRes = await getFilmTypeList()
   typeList.value = typeListRes.data.list
   const regionListRes = await getRegionList()
   regionList.value = regionListRes.data.list
+  watchEffect(async () => {
+    const filmListRes = await getFilmList(typeId.value, regionId.value, yearId.value, sortId.value, pageNum.value, pageSize.value)
+    filmList.value = filmListRes.data.list
+    total.value = filmListRes.data.total
+  })
 })
 
 </script>

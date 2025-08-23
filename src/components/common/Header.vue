@@ -144,7 +144,7 @@
         <div class="nav">
           <router-link to="/index" exact-active-class="active">首页</router-link>
           <router-link to="/film" exact-active-class="active">电影</router-link>
-          <router-link to="/cinema" exact-active-class="active">影院</router-link>
+          <router-link to="/cinemas" exact-active-class="active">影院</router-link>
           <a href="">演出</a>
         </div>
       </div>
