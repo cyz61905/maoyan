@@ -163,8 +163,13 @@
         <div class="user">
           <img src="https://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png" alt="logo" />
           <span class="arrow"></span>
-          <div class="login">
-            <a href="./login.html">登录</a>
+          <div class="login" v-if="!isLogin">
+            <router-link to="/login">登录</router-link>
+          </div>
+          <div class="login" v-else>
+            <router-link to="/order">我的订单</router-link>
+            <router-link to="/profile">基本信息</router-link>
+            <a class="logout" @click.prevent="logout">退出登录</a>
           </div>
         </div>
       </div>
@@ -174,8 +179,35 @@
 
 <script setup>
 
-//todo 登录状态
+import { useUserStore } from '@/stores/userStore.js'
+import { computed, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
+const userStore = useUserStore()
+const isLogin = computed(() => {
+  const user = userStore.user?.value || {}
+  return Object.keys(user).length !== 0
+})
+
+const logout = () => {
+  ElMessageBox.confirm(
+    '确定要退出登录吗?',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }
+  )
+    .then(() => {
+      userStore.logout()
+      ElMessage.success('已退出登录')
+
+    })
+    .catch(() => {
+      console.log('已取消')
+    })
+}
 
 </script>
 

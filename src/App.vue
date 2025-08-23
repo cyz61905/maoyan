@@ -1,14 +1,18 @@
 <template>
-  <RouterView/>
+  <RouterView />
 </template>
 
 <script setup>
 
 import { useUserStore } from '@/stores/userStore.js'
+import { onMounted } from 'vue'
 
 const userStore = useUserStore()
-userStore.user.value = JSON.parse(localStorage.getItem('user'))
 
+onMounted(() => {
+  userStore.user.value = JSON.parse(localStorage.getItem('user')) || {}
+  console.log('App.vue mounted')
+})
 
 </script>
 

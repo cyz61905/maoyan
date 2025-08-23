@@ -31,3 +31,15 @@ export function getFilmComment(filmId,pageNum,pageSize){
 export function addComment(content,score,filmId,userId){
   return request.post(`comment/add`, {content,score,filmId,userId})
 }
+
+export function getFilmTypeList() {
+  return request.get('type/list?pageSize=30')
+}
+
+export function getRegionList() {
+  return request.get('region/list?pageSize=30')
+}
+
+export function getFilmList(typeId,regionId,year,sort,pageNum,pageSize){
+  return request.get(`film/list?typeId=${typeId}&regionId=${regionId}&year=${year}&sort=${sort}&pageNum=${pageNum}&pageSize=${pageSize}`)
+}

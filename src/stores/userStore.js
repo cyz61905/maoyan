@@ -4,5 +4,9 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore('counter', () => {
   const user = ref({})
 
-  return { user }
+  function logout () {
+    user.value = {}
+    localStorage.removeItem('user')
+  }
+  return { user , logout}
 })
