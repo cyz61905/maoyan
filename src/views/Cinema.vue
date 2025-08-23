@@ -94,7 +94,7 @@
             <td>
               <div class="money">￥<span>{{e.price}}</span></div>
             </td>
-            <td><router-link to="/seat" @click="setStorage(i)">选座购票</router-link></td>
+            <td><a @click="setStorage(i)">选座购票</a></td>
           </tr>
           </tbody>
         </table>
@@ -135,6 +135,7 @@ const timeList = ref([])
 const sessions = ref([])
 const dateList = ref([])
 const filmSession = ref(0)
+const filmSessionStore = useFilmSessionStore()
 
 const film = computed(() => {
   return cinema.value.filmList[currentFilm.value]
@@ -158,12 +159,17 @@ const next = () => {
   }
 }
 const setStorage = (i) => {
-  if (cinema.value && cinema.value.filmList.value[currentFilm.value] && dateList.value[filmSession.value] && sessions.value[dateList.value[filmSession.value]][i]) {
-    const filmSessionStore = useFilmSessionStore()
-    filmSessionStore.film.value = cinema.value.filmList.value[currentFilm.value]
+  if (cinema.value && cinema.value.filmList[currentFilm.value] && dateList.value[filmSession.value] && sessions.value[dateList.value[filmSession.value]][i]) {
+    filmSessionStore.film.value = cinema.value.filmList[currentFilm.value]
     filmSessionStore.cinema.value = cinema.value
     filmSessionStore.session.value = sessions.value[dateList.value[filmSession.value]][i]
-    filmSessionStore.date.value = dateList.value[filmSession.value]
+
+    // fixme 此处该不该加value?  不加可以访问，加了反而不行
+    console.log(filmSessionStore.date)
+    console.log(filmSessionStore.date.value)
+    filmSessionStore.date = dateList.value[filmSession.value]
+
+    router.push('/seat')
   } else {
     return false
   }

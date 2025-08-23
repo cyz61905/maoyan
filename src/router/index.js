@@ -42,6 +42,11 @@ const router = createRouter({
       name: 'cinema',
       component: () => import('../views/Cinema.vue')
     },
+    {
+      path: '/seat',
+      name: 'seat',
+      component: () => import('../views/Seat.vue')
+    }
   ],
 })
 
