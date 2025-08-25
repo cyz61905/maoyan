@@ -173,7 +173,7 @@
             <span>最受期待</span>
             <a href="#">查看完整榜单<i class="iconfont icon-xiangyoujiantou"></i></a>
           </div>
-          <a class="first">
+          <router-link class="first" :to="'/detail?id='+expectationFilmList[0].id">
             <i class="iconfont icon-jiangbei"></i>
             <img :src="expectationFilmList[0].posterUrl" :alt="expectationFilmList[0].name" />
             <div class="info">
@@ -181,28 +181,28 @@
               <div class="time">上映时间：{{ expectationFilmList[0].releaseDate }}</div>
               <div class="want">{{ expectationFilmList[0].wantSee }}人想看</div>
             </div>
-          </a>
+          </router-link>
           <div class="st">
             <template v-for="i in 2">
-              <a class="second-third" href="./detail.html?id=${data[i+1].id}">
+              <router-link class="second-third" :to="'/detail?id='+expectationFilmList[i].id">
                 <i>{{ i + 1 }}</i>
                 <img :src="expectationFilmList[i].posterUrl"
                      :alt="expectationFilmList[i].name" />
                 <div class="name">{{ expectationFilmList[i].name }}</div>
                 <div class="want">{{ expectationFilmList[i].wantSee }}人想看</div>
-              </a>
+              </router-link>
             </template>
           </div>
           <ul id="expectation">
             <template v-for="(item, index) in expectationFilmList">
               <li v-if="index > 2">
-                <a href="./movie.html?id=${value.id}">
+                <router-link :to="'/detail?id='+item.id">
                   <div>
                     <span class="gray">{{ index + 1 }}</span>
                     <span class="name">{{ item.name }}</span>
                   </div>
                   <span class="want">{{ item.wantSee }}人想看</span>
-                </a>
+                </router-link>
               </li>
             </template>
           </ul>
@@ -214,7 +214,7 @@
           <ul id="top100List">
             <template v-for="(item, index) in top100FilmList">
               <li v-if="index === 0">
-                <a href="./detail.html?id=${value.id}" class="first" target="_blank">
+                <router-link :to="'/detail?id='+item.id" class="first" target="_blank">
                   <i class="iconfont icon-jiangbei"></i>
                   <img :src="item.posterUrl"
                        :alt="item.name" />
@@ -222,16 +222,16 @@
                     <span class="name">{{ item.name }}</span>
                     <span class="score">{{ (item.score + '').substring(0, 3) }}分</span>
                   </div>
-                </a>
+                </router-link>
               </li>
               <li v-else>
-                <a href="./detail.html?id=${value.id}" target="_blank">
+                <router-link :to="'/detail?id='+item.id" target="_blank">
                   <div>
                     <span :class="index < 3 ? 'num' : 'num gray'">{{ index + 1 }}</span><span
                     class="name">{{ item.name }}</span>
                   </div>
                   <span class="score">{{ (item.score + '').substring(0, 3) }}分</span>
-                </a>
+                </router-link>
               </li>
             </template>
           </ul>

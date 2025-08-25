@@ -531,6 +531,7 @@ onMounted(async () => {
   border-radius: 100px;
   text-align: center;
   box-shadow: 0 2px 10px -2px #f03d37;
+  cursor: pointer;
 }
 
 .main .info-tab .show-time tbody tr td a:hover {

@@ -384,10 +384,12 @@
 import DefaultLayout from '@/layout/DefaultLayout.vue'
 import { computed, onMounted, ref, watchEffect } from 'vue'
 import { addComment, getFilmComment, getFilmDetail, getUserIsWant, userUnWantFilm, userWantFilm } from '@/api/film.js'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore.js'
 
 const route = useRoute()
+const router = useRouter()
 const film = ref({})
 const dataLoaded = ref(false)
 const isWantSee = ref(false)
@@ -398,9 +400,7 @@ const total = ref(0)
 const commentContent = ref('')
 const commentScore = ref(0)
 const width = ref(0)
-const user = {
-  id: 1
-}
+const { user } = useUserStore()
 
 const filmScore = computed(() => {
   return film.value.score ? (String(film.value.score).length >= 3 ? String(film.value.score).substring(0, 3) : film.value.score + '.0') : '0.0'
@@ -416,6 +416,10 @@ const goTab = tab => {
 }
 const toggleWantSee = async () => {
   try {
+    if (!Object.keys(user)) {
+      ElMessage.error('请先登录')
+      return
+    }
     if (isWantSee.value) {
       const res = await userUnWantFilm(film.value.id, user.id)
       if (res.code === 200) {
@@ -454,6 +458,18 @@ const getCommentList = async () => {
 
 onMounted(async () => {
   const id = route.query.id
+  console.log(user)
+  if (Object.keys(user).length === 0) {
+    ElMessage.error('请先登录')
+    router.push('/login')
+    return
+  }
+  if (!id) {
+    ElMessage.error('参数错误')
+    router.back()
+    return
+  }
+
   const filmDetailRes = await getFilmDetail(id)
   film.value = filmDetailRes.data
   dataLoaded.value = true

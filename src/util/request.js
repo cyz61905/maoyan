@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+const baseURL = 'http://106.55.153.66:80/api/maoyan/'
+// const baseURL = 'http://localhost:80/api/maoyan/'
+
 const instance = axios.create({
-  baseURL: 'http://localhost:8080/maoyan/',
+  baseURL: baseURL,
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json;charset=utf-8'

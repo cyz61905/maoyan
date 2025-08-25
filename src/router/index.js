@@ -2,6 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
   routes: [
     {
       path: '/',
@@ -46,6 +53,34 @@ const router = createRouter({
       path: '/seat',
       name: 'seat',
       component: () => import('../views/Seat.vue')
+    },
+    {
+      path: '/confirm',
+      name: 'confirm',
+      component: () => import('../views/Confirm.vue')
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: () => import('../views/Personal.vue'),
+      redirect: '/personal/order',
+      children: [
+        {
+          path: 'order',
+          name: 'order',
+          component: () => import('../components/Order.vue')
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('../components/Profile.vue')
+        }
+      ]
+    },
+    {
+      path: '/orderDetail',
+      name: 'orderDetail',
+      component: () => import('../views/OrderDetail.vue')
     }
   ],
 })
