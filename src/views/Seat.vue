@@ -90,8 +90,10 @@ import { useUserStore } from '@/stores/userStore.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { addOrder } from '@/api/order.js'
+import { useOrderStore } from '@/stores/orderStore.js'
 
 const dataLoaded = ref(false)
+const orderStore = useOrderStore()
 const filmSessionStore = useFilmSessionStore()
 const { film, cinema, session, date } = filmSessionStore
 const { user } = useUserStore()
@@ -183,15 +185,17 @@ const submit = async () => {
       film: {},
       cinema: {},
       session: {},
-      date: '',
-      order: res.data.data
+      date: ''
+    })
+    orderStore.$patch({
+      order: res.data
     })
     ElMessage.success('订单提交成功，即将跳转到支付页面')
     setTimeout(() => {
       router.push('/confirm')
     }, 1000)
   } else {
-    ElMessage.warning(res.data.msg)
+    ElMessage.warning(res.msg)
   }
 
 }

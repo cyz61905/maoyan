@@ -7,3 +7,7 @@ export function userLogin(username, password) {
 export function userRegister(username, password, alignPassword) {
   return request.post('user/register', { username, password, alignPassword })
 }
+
+export function getUserById(userId) {
+  return request.get(`user/${userId}`)
+}

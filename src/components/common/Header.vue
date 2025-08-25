@@ -167,8 +167,8 @@
             <router-link to="/login">登录</router-link>
           </div>
           <div class="login" v-else>
-            <router-link to="/order">我的订单</router-link>
-            <router-link to="/profile">基本信息</router-link>
+            <router-link to="/personal/order">我的订单</router-link>
+            <router-link to="/personal/profile">基本信息</router-link>
             <a class="logout" @click.prevent="logout">退出登录</a>
           </div>
         </div>
