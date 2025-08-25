@@ -10,7 +10,8 @@ import { onMounted } from 'vue'
 const userStore = useUserStore()
 
 onMounted(() => {
-  userStore.user.value = JSON.parse(localStorage.getItem('user')) || {}
+  userStore.user = JSON.parse(localStorage.getItem('user')) || {}
+  console.log(userStore.user)
   console.log('App.vue mounted')
 })
 

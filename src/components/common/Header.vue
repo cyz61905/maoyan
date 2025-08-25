@@ -185,8 +185,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 const userStore = useUserStore()
 const isLogin = computed(() => {
-  const user = userStore.user?.value || {}
-  return Object.keys(user).length !== 0
+  return Object.keys(userStore.user).length !== 0
 })
 
 const logout = () => {

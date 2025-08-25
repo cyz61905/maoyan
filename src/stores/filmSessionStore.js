@@ -6,6 +6,6 @@ export const useFilmSessionStore = defineStore('filmSession', () => {
   const cinema = ref({})
   const session = ref({})
   const date = ref('')
-
-  return { film, cinema, session, date }
+  const order = ref({})
+  return { film, cinema, session, date , order}
 })

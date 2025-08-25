@@ -160,14 +160,17 @@ const next = () => {
 }
 const setStorage = (i) => {
   if (cinema.value && cinema.value.filmList[currentFilm.value] && dateList.value[filmSession.value] && sessions.value[dateList.value[filmSession.value]][i]) {
-    filmSessionStore.film.value = cinema.value.filmList[currentFilm.value]
-    filmSessionStore.cinema.value = cinema.value
-    filmSessionStore.session.value = sessions.value[dateList.value[filmSession.value]][i]
+    filmSessionStore.$patch({
+      film: cinema.value.filmList[currentFilm.value],
+      cinema: cinema.value,
+      session: sessions.value[dateList.value[filmSession.value]][i],
+      date: dateList.value[filmSession.value]
+    })
 
     // fixme 此处该不该加value?  不加可以访问，加了反而不行
+    console.log('date 类型:', typeof filmSessionStore.date)
     console.log(filmSessionStore.date)
-    console.log(filmSessionStore.date.value)
-    filmSessionStore.date = dateList.value[filmSession.value]
+    console.log(filmSessionStore.session)
 
     router.push('/seat')
   } else {
