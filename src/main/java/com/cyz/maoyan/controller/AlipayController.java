@@ -30,7 +30,7 @@ public class AlipayController {
     @GetMapping("pay")
     public String pay(@RequestParam("orderNo") String orderId, String amount) throws Exception {
         Factory.setOptions(config);
-        AlipayTradePagePayResponse response = Factory.Payment.Page().pay("测试商品", orderId, amount, "http://127.0.0.1:5500/order.html");
+        AlipayTradePagePayResponse response = Factory.Payment.Page().pay("测试商品", orderId, amount, "http://106.55.153.66/personal/order");
         return response.getBody();
     }
 
